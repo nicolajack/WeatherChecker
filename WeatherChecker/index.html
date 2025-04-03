@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
         <title>weather checker</title>
     </head>
     <body>
@@ -36,9 +37,22 @@
                     .then(data => {
                         const temperature = data.main.temp;
                         const weather_description = data.weather[0].description;
-                        const fTemp = Math.round(((temperature - 273.15) * 1.8 + 32) * 100) / 100;
+                        const fTemp = Math.round(((temperature - 273.15) * 1.8) + 32);
+                        const cTemp = Math.round((temperature - 273.15), 2);
+                        var whatToWear = "";
+                        if (fTemp < 32) {
+                            whatToWear = "It's freezing! Wear a warm coat, hat, and gloves.";
+                        } else if (fTemp >= 32 && fTemp < 50) {
+                            whatToWear = "It's chilly! A light jacket would be good.";
+                        } else if (fTemp >= 50 && fTemp < 70) {
+                            whatToWear = "It's cool! A long-sleeve shirt should be fine.";
+                        } else if (fTemp >= 70 && fTemp < 85) {
+                            whatToWear = "It's warm! A t-shirt and shorts are good.";
+                        } else {
+                            whatToWear = "It's hot! Stay hydrated and wear light clothing.";
+                        }
                         
-                        const html = `The weather is currently ${fTemp}°F with ${weather_description}.`;
+                        const html = `The weather is currently ${fTemp}°F/${cTemp}°C with ${weather_description}. ${whatToWear}`;
                         document.getElementById('weatherResult').innerText = html;
                         // console.log(`Temperature: ${fTemp} °F`);
                         // console.log(`Weather Description: ${weather_description}`);

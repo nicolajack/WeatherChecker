@@ -2,7 +2,7 @@
 import requests
 
 # to set api key
-API_KEY = '?'
+API_KEY = ''
 
 # to allow users to enter their city
 userCity = input("Enter your city: ")
