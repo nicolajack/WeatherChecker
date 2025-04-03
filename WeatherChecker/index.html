@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>weather checker</title>
+    </head>
+    <body>
+        City Name = <input id="cityname" type="text" placeholder="Enter city name" />
+        <button id="checkWeather">Check Weather</button>
+        <div id="weatherResultWrapper">
+            <p>the weather in your city is: </p>
+            <div id="weatherResult"></div>
+        </div>
+        <script>
+            function getWeather(){
+                // to set api key
+                const API_KEY = '';
+
+                // to allow users to enter their city
+                var userCity = document.getElementById('cityname').value;
+
+                // to create the url for the api request using the user input and api key
+                const url = `http://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${API_KEY}`;
+
+                // to get the response from the api
+                fetch(url)
+                    .then(response => {
+                        // to check if the request was successful
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error("Error: Unable to fetch weather data. Please check the city name.");
+                        }
+                    })
+                    .then(data => {
+                        const temperature = data.main.temp;
+                        const weather_description = data.weather[0].description;
+                        const fTemp = Math.round(((temperature - 273.15) * 1.8 + 32) * 100) / 100;
+                        
+                        const html = `The weather is currently ${fTemp}°F with ${weather_description}.`;
+                        document.getElementById('weatherResult').innerText = html;
+                        // console.log(`Temperature: ${fTemp} °F`);
+                        // console.log(`Weather Description: ${weather_description}`);
+                    })
+                    .catch(error => {
+                        console.error(error.message);
+                    });
+            }
+            document.getElementById('checkWeather').addEventListener('click', getWeather);
+        </script>
+    </body>
+</html>
