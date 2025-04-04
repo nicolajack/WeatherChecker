@@ -7,11 +7,20 @@
         <title>weather checker</title>
     </head>
     <body>
-        City Name = <input id="cityname" type="text" placeholder="Enter city name" />
-        <button id="checkWeather">Check Weather</button>
-        <div id="weatherResultWrapper">
-            <p>the weather in your city is: </p>
-            <div id="weatherResult"></div>
+        <div class="verticalContainer">
+            <div>
+                <h1 id="title">Weather Checker</h1>
+            </div>
+            <h2 id="h2">enter the name of your city</h2>
+            
+            <div id="buttonwrap">
+                <input id="cityname" type="text" placeholder="Boston" />
+                <button id="checkWeather">check!</button>
+            </div>
+            <br>
+            <div id="weatherResultWrapper">
+                <div id="weatherResult"></div>
+            </div>
         </div>
         <script>
             function getWeather(){
@@ -42,14 +51,19 @@
                         var whatToWear = "";
                         if (fTemp < 32) {
                             whatToWear = "It's freezing! Wear a warm coat, hat, and gloves.";
+                            document.body.className = "isCold";
                         } else if (fTemp >= 32 && fTemp < 50) {
                             whatToWear = "It's chilly! A light jacket would be good.";
+                            document.body.className = "isCold";
                         } else if (fTemp >= 50 && fTemp < 70) {
                             whatToWear = "It's cool! A long-sleeve shirt should be fine.";
+                            document.body.className = "isNorm";
                         } else if (fTemp >= 70 && fTemp < 85) {
                             whatToWear = "It's warm! A t-shirt and shorts are good.";
+                            document.body.className = "isHot";
                         } else {
                             whatToWear = "It's hot! Stay hydrated and wear light clothing.";
+                            document.body.className = "isHot";
                         }
                         
                         const html = `The weather is currently ${fTemp}°F/${cTemp}°C with ${weather_description}. ${whatToWear}`;
